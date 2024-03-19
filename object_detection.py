@@ -1,10 +1,10 @@
 import boto3
 from PIL import Image, ImageDraw, ImageFont
 import io
+import os
 
 
 def detect_and_label_objects(image_path, aws_region, access_key_id, secret_access_key):
-
     client = boto3.client('rekognition', region_name=aws_region, aws_access_key_id=access_key_id,
                           aws_secret_access_key=secret_access_key)
 
@@ -43,5 +43,11 @@ def detect_and_label_objects(image_path, aws_region, access_key_id, secret_acces
                 font = ImageFont.truetype("font/Urbanist.ttf", 50)
 
                 draw.text((left + 170, top - 50), label["Name"], font=font, fill='#000000')
+
+    image_name = os.path.basename(image_path)
+    image_base_name, image_extension = os.path.splitext(image_name)
+
+    result_image_path = os.path.join('results', f'result-{image_base_name}{image_extension}')
+    result_image.save(result_image_path)
 
     result_image.show()
