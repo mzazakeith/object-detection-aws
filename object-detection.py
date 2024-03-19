@@ -1,5 +1,6 @@
 import csv
 import boto3
+from PIL import Image, ImageDraw, ImageFont
 
 with open('credentials.csv', 'r') as credential_file:
     next(credential_file)
@@ -19,4 +20,14 @@ with open(photo, 'rb') as image:
 
 detect_objects = client.detect_labels(Image={'Bytes': source_bytes})
 
-print(detect_objects)
+for label in detect_objects['Labels']:
+    print(label['Name'])
+    print('Confidence:', label['Confidence'])
+
+    for(instances) in label['Instances']:
+        if 'BoundingBox' in instances:
+            box = instances['BoundingBox']
+            left = image.width * box['Left']
+            top = image.height * box['Top']
+            width = image.width * box['Width']
+            height = image.height * box['Height']
