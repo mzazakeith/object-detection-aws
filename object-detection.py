@@ -44,5 +44,11 @@ for label in detect_objects['Labels']:
             )
 
             draw.line(points, width=5, fill="#03fccf")
+            shape = [(left - 2, top - 35), (width + 2 + left, top)]
+            draw.rectangle(shape, fill="#69f5d9")
 
-            result_image.show()
+            font = ImageFont.truetype("font/Urbanist.ttf", 50)
+
+            draw.text((left + 170, top - 50), label["Name"], font=font, fill='#000000')
+
+result_image.show()
