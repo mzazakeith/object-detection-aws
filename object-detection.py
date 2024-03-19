@@ -1,4 +1,5 @@
 import csv
+import boto3
 
 with open('credentials.csv', 'r') as credential_file:
     next(credential_file)
