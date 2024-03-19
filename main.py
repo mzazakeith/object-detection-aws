@@ -1,9 +1,12 @@
 from credentials import get_aws_credentials
 from select_image import list_images, select_image
 from object_detection import detect_and_label_objects
+from intro import greet
 
 
 def main():
+    greet()
+
     proceed = input("Would you like to proceed? (y/n): ")
     if proceed.lower() != 'y':
         print("Exiting...")
